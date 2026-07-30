@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ChatOne - Nền tảng nhắn tin P2P hiện đại, bảo mật tuyệt đối, lưu trữ vĩnh viễn, hỗ trợ gửi ảnh & ghi âm. Giao diện chuyên nghiệp, tối ưu mọi thiết bị.">
+  <meta name="keywords" content="ChatOne, nhắn tin P2P, chat bảo mật, lưu trữ vĩnh viễn, gửi ảnh, ghi âm, WebRTC, hcroblox">
+  <meta name="author" content="hcroblox">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ChatOne • Nhắn tin hiện đại & Bảo mật Vĩnh Viễn | hcroblox">
+  <meta property="og:description" content="Nền tảng nhắn tin ngang hàng WebRTC, mã hóa đầu cuối, lưu trữ không giới hạn, giao diện chuẩn doanh nghiệp.">
+  <meta property="og:url" content="https://hcroblox.github.io/Normal-chat">
+  <meta property="og:image" content="https://hcroblox.github.io/Normal-chat/preview.jpg">
+  <meta property="og:locale" content="vi_VN">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ChatOne • Nhắn tin hiện đại & Bảo mật Vĩnh Viễn | hcroblox">
+  <meta name="twitter:description" content="Nền tảng nhắn tin P2P an toàn, nhanh chóng, lưu giữ mãi mãi.">
+  
+  <link rel="canonical" href="https://hcroblox.github.io/Normal-chat">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+  
+  <title>ChatOne • Nhắn tin hiện đại & Bảo mật Vĩnh Viễn | hcroblox</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2563EB',
+            primaryDark: '#1D4ED8',
+            secondary: '#8B5CF6',
+            success: '#10B981',
+            danger: '#EF4444',
+            neutral: {
+              50: '#F8FAFC',
+              100: '#F1F5F9',
+              200: '#E2E8F0',
+              300: '#CBD5E1',
+              600: '#475569',
+              700: '#334155',
+              800: '#1E293B',
+              900: '#0F172A'
+            }
+          },
+          fontFamily: {inter: ['Inter', 'system-ui', 'sans-serif']},
+          boxShadow: {
+            'soft': '0 4px 20px rgba(0, 0, 0, 0.06)',
+            'elevated': '0 10px 30px rgba(37, 99, 235, 0.12)',
+            'neon': '0 0 20px rgba(37, 99, 235, 0.25)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- ==============================================
+       Style.css | Tác giả: hcroblox
+       Dự án: ChatOne | Domain: https://hcroblox.github.io/Normal-chat
+       Mô tả: Giao diện ChatOne hiện đại, chuyên nghiệp
+       ============================================== -->
+  <style type="text/tailwindcss">
+    @layer utilities {
+      /* Nền & Hiệu ứng */
+      .bg-gradient-brand { background: linear-gradient(135deg, #2563EB 0%, #8B5CF6 100%); }
+      .bg-glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+      .dark .bg-glass { background: rgba(15, 23, 42, 0.75); }
+      
+      /* Chữ */
+      .text-gradient { background: linear-gradient(135deg, #2563EB, #8B5CF6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .text-balance { text-wrap: balance; }
+      
+      /* Bo tròn & Bóng */
+      .rounded-xl-premium { border-radius: 14px; }
+      .rounded-2xl-premium { border-radius: 18px; }
+      
+      /* Thanh cuộn */
+      .scrollbar-modern { scrollbar-width: thin; scrollbar-color: #CBD5E1 transparent; }
+      .scrollbar-modern::-webkit-scrollbar { width: 6px; height: 6px; }
+      .scrollbar-modern::-webkit-scrollbar-thumb { background-color: #CBD5E1; border-radius: 3px; }
+      .dark .scrollbar-modern::-webkit-scrollbar-thumb { background-color: #475569; }
+      
+      /* Tab & Trạng thái */
+      .tab-active { border-bottom: 2px solid #2563EB; color: #2563EB; background: rgba(37, 99, 235, 0.08); }
+      .dark .tab-active { background: rgba(37, 99, 235, 0.15); color: #93C5FD; border-bottom-color: #93C5FD; }
+      
+      /* Hiệu ứng tin nhắn & Thông báo */
+      .msg-enter { animation: slideUpFade 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+      .notify-enter { animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      .notify-exit { animation: slideOutRight 0.25s ease forwards; }
+      .pulse-dot { animation: pulse 2.5s infinite; }
+      
+      /* Hover & Tương tác */
+      .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+      .hover-lift:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(37, 99, 235, 0.15); }
+      .btn-primary { background: linear-gradient(135deg, #2563EB, #1D4ED8); transition: all 0.25s ease; }
+      .btn-primary:hover { background: linear-gradient(135deg, #1D4ED8, #1E40AF); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25); }
+      
+      @keyframes slideUpFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes slideInRight { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
+      @keyframes slideOutRight { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(100%); } }
+      @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    }
+  </style>
+</head>
+<body class="bg-neutral-50 dark:bg-neutral-900 font-inter text-neutral-800 dark:text-neutral-100 min-h-screen text-[15px] leading-relaxed antialiased transition-colors duration-300">
+  <!-- Thông báo -->
+  <div id="notifyContainer" class="fixed top-4 right-4 z-[100] flex flex-col gap-3 w-full max-w-[420px] pointer-events-none"></div>
+
+  <!-- Nền động tinh tế -->
+  <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+    <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 dark:bg-primary/8 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary/5 dark:bg-secondary/8 rounded-full blur-3xl"></div>
+  </div>
+
+  <!-- Container chính RỘNG, CHUYÊN NGHIỆP -->
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-5 md:py-8">
+    <!-- Header -->
+    <header class="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 flex items-center justify-center rounded-xl-premium bg-gradient-brand text-white shadow-neon">
+          <i class="fa fa-comments-o text-xl"></i>
+        </div>
+        <div>
+          <h1 class="text-[22px] font-bold text-gradient tracking-tight">ChatOne</h1>
+          <p class="text-[13px] text-neutral-600 dark:text-neutral-300 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-success pulse-dot"></span>
+            <span class="font-medium">Lưu trữ vĩnh viễn • Bảo mật cấp doanh nghiệp</span>
+          </p>
+        </div>
+      </div>
+      <button id="themeToggle" class="p-2.5 rounded-xl-premium bg-glass shadow-soft hover:shadow-elevated transition-all duration-300 border border-neutral-200/50 dark:border-neutral-700/50">
+        <i class="fa fa-moon-o dark:hidden text-neutral-700"></i>
+        <i class="fa fa-sun-o hidden dark:inline text-yellow-400"></i>
+      </button>
+    </header>
+
+    <!-- Tab Navigation -->
+    <div class="bg-glass rounded-2xl-premium shadow-soft mb-6 overflow-hidden border border-neutral-200/60 dark:border-neutral-700/60">
+      <div class="flex border-b border-neutral-200/60 dark:border-neutral-700/60 text-[14px] font-semibold">
+        <button class="tab-btn flex-1 py-4 px-4 text-center transition-all duration-200 tab-active" data-tab="connect">
+          <i class="fa fa-link mr-2"></i>Kết nối
+        </button>
+        <button class="tab-btn flex-1 py-4 px-4 text-center transition-all duration-200 text-neutral-600 dark:text-neutral-300 hover:text-primary dark:hover:text-blue-300" data-tab="chat">
+          <i class="fa fa-comments mr-2"></i>Trò chuyện
+        </button>
+        <button class="tab-btn flex-1 py-4 px-4 text-center transition-all duration-200 text-neutral-600 dark:text-neutral-300 hover:text-primary dark:hover:text-blue-300" data-tab="settings">
+          <i class="fa fa-sliders mr-2"></i>Cài đặt
+        </button>
+        <button class="tab-btn flex-1 py-4 px-4 text-center transition-all duration-200 text-neutral-600 dark:text-neutral-300 hover:text-primary dark:hover:text-blue-300" data-tab="about">
+          <i class="fa fa-info-circle mr-2"></i>Thông tin
+        </button>
+      </div>
+    </div>
+
+    <!-- Nội dung chính -->
+    <div class="bg-glass rounded-2xl-premium shadow-soft p-5 sm:p-7 mb-6 border border-neutral-200/60 dark:border-neutral-700/60">
+      <!-- Tab Kết Nối -->
+      <div id="connect" class="tab-content space-y-6">
+        <div id="status" class="flex items-center p-4 rounded-xl-premium bg-neutral-100/80 dark:bg-neutral-800/60 border border-neutral-200/80 dark:border-neutral-700/80">
+          <span class="w-2.5 h-2.5 rounded-full bg-yellow-500 mr-3 animate-pulse"></span>
+          <span class="font-semibold">Đang khởi tạo kết nối an toàn...</span>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-5">
+          <div class="space-y-3">
+            <h3 class="font-semibold text-[15px] flex items-center gap-2"><i class="fa fa-id-card text-primary"></i> ID Định danh của bạn</h3>
+            <div class="flex gap-3">
+              <input id="myId" readonly class="flex-1 px-4 py-3 rounded-xl-premium border border-neutral-200 dark:border-neutral-700 bg-white/80 dark:bg-neutral-800/80 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none text-[14px] transition-all">
+              <button id="copyId" class="px-4 py-3 rounded-xl-premium bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-700/60 dark:hover:bg-neutral-700 transition-all duration-200 hover-lift">
+                <i class="fa fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <div class="space-y-3">
+            <h3 class="font-semibold text-[15px] flex items-center gap-2"><i class="fa fa-link text-primary"></i> Link mời kết nối</h3>
+            <div class="flex gap-3">
+              <input id="inviteLink" readonly class="flex-1 px-4 py-3 rounded-xl-premium border border-neutral-200 dark:border-neutral-700 bg-white/80 dark:bg-neutral-800/80 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none text-[14px] transition-all">
+              <button id="copyLink" class="px-4 py-3 rounded-xl-premium bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-700/60 dark:hover:bg-neutral-700 transition-all duration-200 hover-lift">
+                <i class="fa fa-copy"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-5 rounded-xl-premium bg-gradient-to-r from-primary/8 to-secondary/8 dark:from-primary/12 dark:to-secondary/12 border border-primary/15">
+          <h3 class="font-semibold text-[15px] mb-4 flex items-center gap-2"><i class="fa fa-user-plus text-primary"></i> Kết nối với đối tác</h3>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <input id="peerId" placeholder="Nhập ID người nhận..." class="flex-1 px-5 py-3.5 rounded-xl-premium border border-neutral-200 dark:border-neutral-700 bg-white/90 dark:bg-neutral-800/90 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all text-[15px]">
+            <button id="connectBtn" class="btn-primary px-7 py-3.5 rounded-xl-premium text-white font-semibold shadow-lg shadow-primary/20 hover:shadow-neon">
+              <i class="fa fa-paper-plane mr-2"></i>Kết nối ngay
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Chat -->
+      <div id="chat" class="tab-content hidden">
+        <div id="chatWrap" class="flex flex-col h-[72vh]">
+          <div id="messages" class="flex-1 overflow-y-auto mb-4 space-y-3 pr-2 scrollbar-modern">
+            <div class="h-full flex flex-col items-center justify-center text-center p-8">
+              <div class="w-16 h-16 flex items-center justify-center rounded-full bg-primary/10 dark:bg-primary/15 text-primary mb-4">
+                <i class="fa fa-comments-o text-2xl"></i>
+              </div>
+              <h4 class="text-[18px] font-bold mb-2">Bắt đầu cuộc hội thoại</h4>
+              <p class="text-neutral-600 dark:text-neutral-300 text-[14px] max-w-md text-balance">Kết nối an toàn • Lưu trữ vĩnh viễn • Không chia sẻ dữ liệu với bên thứ ba</p>
+            </div>
+          </div>
+          
+          <!-- Xem trước ảnh -->
+          <div id="previewBox" class="hidden relative mb-4 p-4 rounded-xl-premium bg-neutral-100/80 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700">
+            <button id="closePreview" class="absolute -top-2 -right-2 w-7 h-7 flex items-center justify-center bg-danger text-white rounded-full shadow-lg hover:bg-danger/90 transition-colors">✕</button>
+            <img id="previewImg" class="max-h-36 max-w-full rounded-lg">
+          </div>
+
+          <!-- Thanh nhập -->
+          <div class="p-4 rounded-xl-premium bg-neutral-100/80 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700">
+            <div class="flex items-center gap-3 mb-3">
+              <button id="imgBtn" class="p-2 text-neutral-600 dark:text-neutral-300 hover:text-primary dark:hover:text-blue-300 transition-colors">
+                <i class="fa fa-image text-lg"></i>
+              </button>
+              <input type="file" id="imgInput" accept="image/*" class="hidden">
+              <button id="recBtn" class="p-2 text-neutral-600 dark:text-neutral-300 hover:text-danger transition-colors">
+                <i class="fa fa-microphone text-lg"></i>
+              </button>
+              <div id="recStatus" class="hidden flex items-center gap-2 text-danger text-[13px] font-semibold">
+                <span class="w-2 h-2 rounded-full bg-danger animate-pulse"></span>Đang ghi âm...
+                <button id="stopRec" class="ml-2 text-[12px] underline">Dừng & Gửi</button>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <textarea id="msgInput" rows="1" placeholder="Nhập nội dung tin nhắn..." class="flex-1 px-4 py-3 rounded-xl-premium border border-neutral-200 dark:border-neutral-700 bg-white/90 dark:bg-neutral-800/90 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none resize-none transition-all text-[15px]"></textarea>
+              <button id="sendBtn" disabled class="btn-primary px-6 py-3 rounded-xl-premium text-white font-semibold shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                <i class="fa fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Cài Đặt -->
+      <div id="settings" class="tab-content hidden space-y-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl-premium bg-primary/10 flex items-center justify-center text-primary">
+            <i class="fa fa-sliders text-lg"></i>
+          </div>
+          <h3 class="text-[20px] font-bold">Cài đặt hệ thống</h3>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-5">
+          <!-- Fix Lag -->
+          <div class="p-5 rounded-xl-premium bg-neutral-100/80 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 hover-lift">
+            <div class="flex items-center justify-between">
+              <div>
+                <h4 class="font-semibold flex items-center gap-2"><i class="fa fa-bolt text-yellow-500"></i> Tối ưu hiệu suất</h4>
+                <p class="text-[13px] text-neutral-600 dark:text-neutral-300 mt-1">Giảm tải • Tăng tốc giao diện</p>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="fixLag" class="sr-only peer">
+                <div class="w-11 h-6 bg-neutral-200 peer-focus:outline-none rounded-full peer dark:bg-neutral-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Lưu Vĩnh Viễn -->
+          <div class="p-5 rounded-xl-premium bg-success/5 border border-success/15 hover-lift">
+            <div class="flex items-center justify-between">
+              <div>
+                <h4 class="font-semibold flex items-center gap-2 text-success"><i class="fa fa-database"></i> Lưu trữ vĩnh viễn</h4>
+                <p class="text-[13px] text-neutral-600 dark:text-neutral-300 mt-1">Dữ liệu không bị mất khi đóng/mở lại</p>
+              </div>
+              <span class="text-success text-xl"><i class="fa fa-check-circle"></i></span>
+            </div>
+          </div>
+
+          <!-- Chất Lượng -->
+          <div class="p-5 rounded-xl-premium bg-neutral-100/80 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 hover-lift">
+            <h4 class="font-semibold mb-4 flex items-center gap-2"><i class="fa fa-camera text-secondary"></i> Chất lượng media</h4>
+            <select id="mediaQuality" class="w-full px-4 py-3 rounded-xl-premium border border-neutral-200 dark:border-neutral-700 bg-white/90 dark:bg-neutral-800/90 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none text-[14px] transition-all">
+              <option value="low">Thấp • Tốc độ cao</option>
+              <option value="mid" selected>Trung bình • Cân bằng</option>
+              <option value="high">Cao • Độ nét tốt nhất</option>
+            </select>
+          </div>
+
+          <!-- Thông Báo -->
+          <div class="p-5 rounded-xl-premium bg-neutral-100/80 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 hover-lift">
+            <h4 class="font-semibold mb-4 flex items-center gap-2"><i class="fa fa-bell text-yellow-500"></i> Cấu hình thông báo</h4>
+            <div class="space-y-4 text-[14px]">
+              <label class="flex items-center justify-between">
+                <span class="font-medium">Hiển thị thông báo</span>
+                <input type="checkbox" id="enableNotify" checked class="w-4 h-4 text-primary rounded focus:ring-primary/30">
+              </label>
+              <label class="flex items-center justify-between">
+                <span class="font-medium">Âm thanh thông báo</span>
+                <input type="checkbox" id="soundNotify" checked class="w-4 h-4 text-primary rounded focus:ring-primary/30">
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Xóa Dữ Liệu -->
+        <div class="p-5 rounded-xl-premium bg-danger/5 border border-danger/15">
+          <h4 class="font-semibold mb-3 flex items-center gap-2 text-danger"><i class="fa fa-trash"></i> Vùng nguy hiểm</h4>
+          <p class="text-[13px] text-neutral-600 dark:text-neutral-300 mb-4">Lưu ý: Thao tác này sẽ xóa toàn bộ lịch sử & kết nối không thể khôi phục</p>
+          <button id="clearData" class="px-6 py-3 bg-danger hover:bg-danger/90 text-white rounded-xl-premium shadow-lg shadow-danger/20 transition-all duration-200 font-semibold">
+            🗑️ Xóa toàn bộ dữ liệu
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab Thông Tin -->
+      <div id="about" class="tab-content hidden space-y-7">
+        <div class="text-center max-w-3xl mx-auto">
+          <div class="w-18 h-18 flex items-center justify-center rounded-2xl-premium bg-gradient-brand text-white shadow-neon mx-auto mb-5">
+            <i class="fa fa-comments-o text-3xl"></i>
+          </div>
+          <h2 class="text-[24px] font-bold text-gradient mb-4">ChatOne • Nền tảng nhắn tin hiện đại</h2>
+          <p class="text-neutral-600 dark:text-neutral-300 text-[15px] leading-relaxed text-balance">
+            Được xây dựng trên công nghệ ngang hàng WebRTC • <strong>Lưu trữ vĩnh viễn</strong> • Mã hóa đầu cuối • Không máy chủ trung gian • Tự động kết nối lại.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-5">
+          <div class="p-5 rounded-xl-premium bg-neutral-100/80 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 text-center hover-lift">
+            <div class="w-12 h-12 flex items-center justify-center rounded-full bg-success/10 text-success mx-auto mb-3"><i class="fa fa-shield text-lg"></i></div>
+            <h4 class="font-semibold mb-2">Bảo mật tuyệt đối</h4>
+            <p class="text-[13px] text-neutral-600 dark:text-neutral-300">Mã hóa đầu cuối AES-256</p>
+          </div>
+          <div class="p-5 rounded-xl-premium bg-neutral-100/80 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 text-center hover-lift">
+            <div class="w-12 h-12 flex items-center justify-center rounded-full bg-primary/10 text-primary mx-auto mb-3"><i class="fa fa-database text-lg"></i></div>
+            <h4 class="font-semibold mb-2">Lưu trữ vĩnh viễn</h4>
+            <p class="text-[13px] text-neutral-600 dark:text-neutral-300">Lịch sử không giới hạn</p>
+          </div>
+          <div class="p-5 rounded-xl-premium bg-neutral-100/80 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 text-center hover-lift">
+            <div class="w-12 h-12 flex items-center justify-center rounded-full bg-secondary/10 text-secondary mx-auto mb-3"><i class="fa fa-bolt text-lg"></i></div>
+            <h4 class="font-semibold mb-2">Tốc độ tức thời</h4>
+            <p class="text-[13px] text-neutral-600 dark:text-neutral-300">Truyền trực tiếp không qua trung gian</p>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-xl-premium bg-gradient-to-br from-neutral-50 to-neutral-100/80 dark:from-neutral-800/40 dark:to-neutral-800/20 border border-neutral-200/80 dark:border-neutral-700/80">
+          <h3 class="text-[18px] font-bold mb-5 flex items-center gap-2.5"><span class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary"><i class="fa fa-code"></i></span> Thông tin kỹ thuật</h3>
+          <div class="grid md:grid-cols-2 gap-x-8 gap-y-3 text-[14px]">
+            <div class="flex justify-between pb-2 border-b border-neutral-200/60 dark:border-neutral-700/60"><span class="text-neutral-600 dark:text-neutral-300">Phiên bản</span><span class="font-semibold">2.2.0 Premium</span></div>
+            <div class="flex justify-between pb-2 border-b border-neutral-200/60 dark:border-neutral-700/60"><span class="text-neutral-600 dark:text-neutral-300">Lưu trữ cục bộ</span><span class="font-semibold">LocalStorage • Vĩnh viễn</span></div>
+            <div class="flex justify-between pb-2 border-b border-neutral-200/60 dark:border-neutral-700/60"><span class="text-neutral-600 dark:text-neutral-300">Giao thức</span><span class="font-semibold">WebRTC • P2P An toàn</span></div>
+            <div class="flex justify-between pb-2 border-b border-neutral-200/60 dark:border-neutral-700/60"><span class="text-neutral-600 dark:text-neutral-300">Khả năng mở rộng</span><span class="font-semibold">Không giới hạn dữ liệu</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center pb-6 text-neutral-600 dark:text-neutral-300 text-[13px]">
+      <div class="flex items-center justify-center gap-2 mb-2"><span class="w-2 h-2 rounded-full bg-success"></span><span class="font-medium">Hoạt động ổn định & Bảo mật</span></div>
+      <p>© 2026 ChatOne • Tác giả: <strong>hcroblox</strong> • <a href="https://hcroblox.github.io/Normal-chat" class="text-primary hover:underline">https://hcroblox.github.io/Normal-chat</a></p>
+    </footer>
+  </div>
+
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+  <!-- ==============================================
+       script.js | Tác giả: hcroblox
+       Dự án: ChatOne | Domain: https://hcroblox.github.io/Normal-chat
+       Mô tả: Xử lý logic ChatOne - P2P, lưu trữ, giao diện
+       ============================================== -->
+  <script src="script.js"></script>
+</body>
+</html>
