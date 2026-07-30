@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hcroblox.github.io/Normal-chat/sitemap.xml
