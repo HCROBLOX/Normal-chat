@@ -1,0 +1,9 @@
+# Loại bỏ file bí mật/cấu hình riêng
+.env
+*.local
+config.secret.json
+
+# File tạm, log
+*.log
+tmp/
+.DS_Store
